@@ -37,8 +37,7 @@ Prerequisites:
         docker-compose exec auth-backend composer install
     ```
 
-4. Setup .env file for your needs example in .env.test
-    
+4. Setup .env file for your needs example in .env.dist
 
 5. Open in browser:
     - http://127.0.0.1:8001
