@@ -35,14 +35,12 @@ class UserManager implements UserManagerInterface
      */
     protected $encoder;
 
-
     public function __construct(
         UserRepositoryInterface $repository,
         StorageInterface $storage,
         UserTransformerInterface $transformer,
         PasswordEncoderInterface $encoder
-    )
-    {
+    ) {
         $this->repository = $repository;
         $this->storage = $storage;
         $this->transformer = $transformer;
@@ -58,13 +56,13 @@ class UserManager implements UserManagerInterface
             ;
 
             $user->setPassword($encoded);
-            $this->storage->create(
+            $userData = $this->storage->create(
                 User::TABLE,
                 $user->getUsername(),
                 $this->transformer->transformToRow($user)
             );
 
-            return $user;
+            return $this->transformer->transformToObj($userData);
         } catch (DuplicateRecordException $exception) {
             throw new UserAlreadyExistsException('User with this nick already created!');
         }

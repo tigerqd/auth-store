@@ -27,6 +27,8 @@ services:
   Core\RestApiBundle\Responder\V1\TrackerResponder:
     autowire: true
     autoconfigure: true
+    arguments:
+      $anonCookieName: '%anon_cookie_name%'
 
   Core\RestApiBundle\Controller\V1\AbstractAuthController:
     abstract: true

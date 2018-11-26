@@ -38,8 +38,7 @@ class TrackController extends RestController
         RequestStack $requestStack,
         ResponderInterface $responder,
         string $eventLabelName = 'source_label'
-    )
-    {
+    ) {
         $this->tracker = $tracker;
         $this->requestStack = $requestStack;
         $this->responder = $responder;
@@ -48,6 +47,7 @@ class TrackController extends RestController
 
     /**
      * @Route("/track/", name="track", methods={"GET"})
+     *
      * @throws \HttpRuntimeException
      */
     public function track(): JsonResponse
@@ -55,7 +55,7 @@ class TrackController extends RestController
         $request = $this->requestStack->getCurrentRequest();
         $this->validateRequest($request);
 
-        if($request->query->has($this->eventLabelName)) {
+        if ($request->query->has($this->eventLabelName)) {
             $this->tracker->track(
                 $request->query->get($this->eventLabelName, '')
             );

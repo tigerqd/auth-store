@@ -8,7 +8,7 @@ require dirname(__DIR__) . '/config/bootstrap.php';
 
 $s = new \SocialTech\SlowStorage();
 
-#$s->store(__DIR__ . '/../storage/test', 'test');
+$s->store(__DIR__ . '/../var/cache/dev/test', 'test');
 
 if ($_SERVER['APP_DEBUG']) {
     umask(0000);

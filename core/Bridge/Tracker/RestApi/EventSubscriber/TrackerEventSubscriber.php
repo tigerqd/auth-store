@@ -11,6 +11,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Core\Component\Anon\Service\AnonManagerInterface;
 
 class TrackerEventSubscriber implements EventSubscriberInterface
 {
@@ -24,8 +25,17 @@ class TrackerEventSubscriber implements EventSubscriberInterface
      */
     protected $bus;
 
-    public function __construct(TokenStorageInterface $tokenStorage, MessageBusInterface $bus)
-    {
+    /**
+     * @var AnonManagerInterface
+     */
+    protected $anonManager;
+
+    public function __construct(
+        AnonManagerInterface $anonManager,
+        TokenStorageInterface $tokenStorage,
+        MessageBusInterface $bus
+    ) {
+        $this->anonManager = $anonManager;
         $this->tokenStorage = $tokenStorage;
         $this->bus = $bus;
     }
@@ -43,8 +53,9 @@ class TrackerEventSubscriber implements EventSubscriberInterface
     {
         $user = $this->getUser();
         $message = new AnalyticsMessage();
-        $message->setUserId($user ? $user->getId(): 1); // @TODO
+        $message->setUserId($user ? $user->getId() : $this->anonManager->getId());
         $message->setEventType($event->getEventType());
+        $this->bus->dispatch($message);
     }
 
     protected function getUser(): ?UserInterface

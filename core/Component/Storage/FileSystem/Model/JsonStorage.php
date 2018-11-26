@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Core\Component\Storage\FileSystem\Model;
 
+use Core\Component\Storage\IncrementStrategyInterface;
 use Core\Component\Storage\StorageInterface;
 use Core\Component\Storage\Exception\DuplicateRecordException;
 
@@ -14,12 +15,18 @@ class JsonStorage implements StorageInterface
      */
     protected $manager;
 
-    public function __construct(JsonManager $manager)
+    /**
+     * @var IncrementStrategyInterface
+     */
+    protected $incrementStrategy;
+
+    public function __construct(JsonManager $manager, IncrementStrategyInterface $incrementStrategy)
     {
         $this->manager = $manager;
+        $this->incrementStrategy = $incrementStrategy;
     }
 
-    public function create(string $storageField, string $key, array $data): void
+    public function create(string $storageField, string $key, array $data): array
     {
         if ($this->exists($storageField, $key)) {
             throw new DuplicateRecordException(
@@ -27,8 +34,10 @@ class JsonStorage implements StorageInterface
             );
         }
 
-        // @TODO autoincrement strategy
-       $this->manager->write($storageField, $key, $data);
+        $data['id'] = $this->incrementStrategy->incr($storageField);
+        $this->manager->write($storageField, $key, $data);
+
+        return $data;
     }
 
     public function findOneBy(string $storageField, string $row): ?array

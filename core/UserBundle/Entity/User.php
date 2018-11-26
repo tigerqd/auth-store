@@ -47,7 +47,7 @@ class User implements UserInterface, EncoderAwareInterface
     private $nickname = '';
 
     /**
-     * @var null|int
+     * @var int|null
      *
      * @Assert\NotBlank
      * @Assert\GreaterThan(0)
@@ -55,7 +55,7 @@ class User implements UserInterface, EncoderAwareInterface
     private $age;
 
     /**
-     * @var null|string
+     * @var string|null
      *
      * @Assert\NotBlank(groups={"Default", "login"})
      * @Assert\Length(
@@ -74,10 +74,9 @@ class User implements UserInterface, EncoderAwareInterface
     ];
 
     /**
-     * @var null|string
+     * @var string|null
      */
     private $salt;
-
 
     public function eraseCredentials(): void
     {
@@ -85,7 +84,7 @@ class User implements UserInterface, EncoderAwareInterface
 
     public function getPassword(): ?string
     {
-       return $this->password;
+        return $this->password;
     }
 
     public function getRoles(): array
@@ -104,7 +103,7 @@ class User implements UserInterface, EncoderAwareInterface
 
     public function getUsername(): string
     {
-       return $this->getNickname();
+        return $this->getNickname();
     }
 
     public function setUsername(string $nickname): void

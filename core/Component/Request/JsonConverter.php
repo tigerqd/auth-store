@@ -13,13 +13,13 @@ class JsonConverter
 {
     public function convert(Request $request): void
     {
-        if ($request->getContentType() !== 'json' || !$request->getContent()) {
+        if ('json' !== $request->getContentType() || !$request->getContent()) {
             return;
         }
 
         $data = json_decode($request->getContent(), true);
 
-        if (json_last_error() !== JSON_ERROR_NONE) {
+        if (JSON_ERROR_NONE !== json_last_error()) {
             throw new BadRequestHttpException(
                 sprintf(
                     'invalid json body: %s',

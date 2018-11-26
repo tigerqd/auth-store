@@ -14,6 +14,7 @@ class LoginController extends AbstractAuthController
 {
     /**
      * @Route("login", name="login", methods={"POST"})
+     *
      * @throws \HttpRuntimeException
      * @throws AccessDeniedException
      */

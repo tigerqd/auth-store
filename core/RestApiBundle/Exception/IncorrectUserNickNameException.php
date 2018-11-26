@@ -6,5 +6,4 @@ namespace Core\RestApiBundle\Exception;
 
 class IncorrectUserNickNameException extends \RunTimeException
 {
-
 }

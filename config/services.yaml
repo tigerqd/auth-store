@@ -7,6 +7,7 @@ parameters:
     locale: 'en'
     storage_dir: '%env(STORAGE_DIR)%'
     tracker_event_label: '%env(TRACKER_EVENT_LABEL)%'
+    anon_cookie_name: '%env(ANON_COOKIE_NAME)%'
 
 services:
     # default configuration for services in *this* file

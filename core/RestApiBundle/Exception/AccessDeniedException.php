@@ -12,8 +12,7 @@ class AccessDeniedException extends \RuntimeException
         string $message = 'Access denied',
         int $code = 403,
         Throwable $previous = null
-    )
-    {
+    ) {
         parent::__construct($message, $code, $previous);
     }
 }

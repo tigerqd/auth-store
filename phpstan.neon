@@ -1,0 +1,7 @@
+parameters:
+	bootstrap: %currentWorkingDirectory%/phpstan-bootstrap.php
+	ignoreErrors:
+		- '#Class RuntimeException referenced with incorrect case: RunTimeException.#'
+		- '#Instantiated class HttpRuntimeException not found.#'
+	excludes_analyse:
+		- %currentWorkingDirectory%/vendor/

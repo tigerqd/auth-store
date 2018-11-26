@@ -6,7 +6,7 @@ namespace Core\Component\Storage;
 
 interface StorageInterface
 {
-    public function create(string $storageField, string $key, array $data): void;
+    public function create(string $storageField, string $key, array $data): array;
 
     public function findOneBy(string $storageField, string $row): ?array;
 

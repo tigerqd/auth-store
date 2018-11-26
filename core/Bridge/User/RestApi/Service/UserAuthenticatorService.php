@@ -27,7 +27,7 @@ class UserAuthenticatorService implements UserAuthenticatorServiceInterface
     protected $providerKey;
 
     /**
-     * @var null|Request
+     * @var Request|null
      */
     protected $request;
 
@@ -35,8 +35,7 @@ class UserAuthenticatorService implements UserAuthenticatorServiceInterface
         GuardAuthenticatorHandler $guard,
         AuthenticatorInterface $authenticator,
         string $providerKey = 'main'
-    )
-    {
+    ) {
         $this->guard = $guard;
         $this->authenticator = $authenticator;
         $this->providerKey = $providerKey;

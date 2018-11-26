@@ -16,7 +16,6 @@ class AuthEventSubscriber implements EventSubscriberInterface
      */
     protected $authenticatorService;
 
-
     public function __construct(UserAuthenticatorServiceInterface $authenticatorService)
     {
         $this->authenticatorService = $authenticatorService;

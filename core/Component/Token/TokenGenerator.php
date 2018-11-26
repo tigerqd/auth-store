@@ -10,8 +10,6 @@ class TokenGenerator implements TokenGeneratorInterface
 {
     public function generate(string $salt): string
     {
-       return (string) Uuid::uuid5(
-           __NAMESPACE__, sha1($salt.\time())
-       );
+        return Uuid::uuid1(sha1($salt))->serialize();
     }
 }

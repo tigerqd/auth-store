@@ -42,10 +42,16 @@ Prerequisites:
 5. Open in browser:
     - http://127.0.0.1:8001
 
-6. Run consumer
+6. Run consumer, for correct running setup socket connect with amqp in .env file
     ```bash
         docker-compose exec auth-backend  bin/console messenger:consume-messages amqp
+        
     ```
+     Or simply 
+    ```bash
+            make consumer
+    ```
+    
 7. Project api methods
    
    1. ### POST /api/v1/register
@@ -85,3 +91,9 @@ chmod -R 777 var/cache/ var/logs/ var/sessions
 ##Troubleshooting
 * Sometimes **docker-compose** command cannot obtain some packages during container build process and fails with error like 
 `E: Failed to fetch some package`. Try to turn off VPN.
+
+* Setup socket connect for docker 
+Get rabbitmq container ip like this
+ ` docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' auth-store_rabbitmq_1_66a1bc086f94 `
+And the add target ip to configuration .env file:
+`MESSENGER_TRANSPORT_DSN=amqp://guest:guest@172.25.0.2:5672//%2f/messages`

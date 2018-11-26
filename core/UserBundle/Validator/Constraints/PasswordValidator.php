@@ -31,7 +31,7 @@ class PasswordValidator extends ConstraintValidator
 
     /**
      * @param UserInterface $entity
-     * @param Constraint $constraint
+     * @param Constraint    $constraint
      */
     public function validate($entity, Constraint $constraint): void
     {
@@ -57,7 +57,7 @@ class PasswordValidator extends ConstraintValidator
             return;
         }
 
-        if ($this->isPasswordValid($originalUser->getPassword(), (string)$entity->getPassword())) {
+        if ($this->isPasswordValid($originalUser->getPassword(), (string) $entity->getPassword())) {
             return;
         }
 

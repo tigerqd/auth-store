@@ -14,7 +14,6 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
-
 class AuthUserGuard extends AbstractGuardAuthenticator
 {
     public const GUARD_URIS = [
@@ -33,9 +32,9 @@ class AuthUserGuard extends AbstractGuardAuthenticator
 
     public function supports(Request $request): bool
     {
-       if (\in_array(trim($request->getPathInfo(), '/'), static::GUARD_URIS, true)) {
-           return true;
-       }
+        if (\in_array(trim($request->getPathInfo(), '/'), static::GUARD_URIS, true)) {
+            return true;
+        }
 
         return false;
     }
@@ -93,13 +92,12 @@ class AuthUserGuard extends AbstractGuardAuthenticator
 
     private function getDataMessage(?AuthenticationException $exception): array
     {
-
-        if(null === $exception) {
+        if (null === $exception) {
             return [];
         }
 
         $data = [
-            'message' => strtr($exception->getMessageKey(), $exception->getMessageData())
+            'message' => strtr($exception->getMessageKey(), $exception->getMessageData()),
         ];
 
         if ('Username could not be found.' === $data['message']) {
@@ -107,6 +105,5 @@ class AuthUserGuard extends AbstractGuardAuthenticator
         }
 
         return $data;
-
     }
 }

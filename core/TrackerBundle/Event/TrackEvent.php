@@ -18,7 +18,6 @@ class TrackEvent extends Event
      */
     private $data;
 
-
     public function __construct(string $eventType, array $data = [])
     {
         $this->eventType = $eventType;

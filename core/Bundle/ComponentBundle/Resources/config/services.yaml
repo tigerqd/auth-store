@@ -10,11 +10,30 @@ services:
     arguments:
       $storagePath: '%storage_dir%'
 
+  Core\Component\Storage\FileSystem\Model\JsonIncrementStrategy:
+    class: Core\Component\Storage\FileSystem\Model\JsonIncrementStrategy
+    arguments:
+      $manager: '@Core\Component\Storage\FileSystem\Model\JsonManager'
+
+  Core\Component\Storage\IncrementStrategyInterface: '@Core\Component\Storage\FileSystem\Model\JsonIncrementStrategy'
+
   Core\Component\Storage\FileSystem\Model\JsonStorage:
     class: Core\Component\Storage\FileSystem\Model\JsonStorage
     arguments:
       $manager: '@Core\Component\Storage\FileSystem\Model\JsonManager'
 
+
   Core\Component\Storage\StorageInterface: '@Core\Component\Storage\FileSystem\Model\JsonStorage'
 
   Core\Component\Request\JsonConverter: ~
+
+  Core\Component\Token\TokenGenerator: ~
+
+  Core\Component\Token\TokenGeneratorInterface: '@Core\Component\Token\TokenGenerator'
+
+  Core\Component\Anon\Service\AnonManager:
+    arguments:
+      $requestStack: '@request_stack'
+      $anonCookieName: '%anon_cookie_name%'
+
+  Core\Component\Anon\Service\AnonManagerInterface: '@Core\Component\Anon\Service\AnonManager'

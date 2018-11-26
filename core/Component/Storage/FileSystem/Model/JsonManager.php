@@ -18,9 +18,7 @@ class JsonManager implements FileWriterInterface, FileReaderInterface
 
     public function read(string $storageField, string $file): ?array
     {
-        return json_decode(
-            file_get_contents($this->buildPath($storageField, $file)),
-        true);
+        return $this->getFileData($this->buildPath($storageField, $file));
     }
 
     public function write(string $storageField, string $key, array $data): void
@@ -38,6 +36,13 @@ class JsonManager implements FileWriterInterface, FileReaderInterface
         }
 
         return file_exists($this->buildPath($storageField, $file));
+    }
+
+    private function getFileData(string $path): ?array
+    {
+        return json_decode(
+            file_get_contents($path),
+            true);
     }
 
     private function buildPath(string $storageField, string $file): string

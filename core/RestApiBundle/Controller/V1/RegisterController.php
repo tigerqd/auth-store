@@ -12,6 +12,7 @@ class RegisterController extends AbstractAuthController
 {
     /**
      * @Route("register", name="register", methods={"POST"})
+     *
      * @throws \HttpRuntimeException
      */
     public function register(): JsonResponse

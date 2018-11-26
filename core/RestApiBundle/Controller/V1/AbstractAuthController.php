@@ -43,8 +43,7 @@ abstract class AbstractAuthController extends RestController
         UserManagerInterface $userManager,
         ResponderInterface $responder,
         EventDispatcherInterface $eventDispatcher
-    )
-    {
+    ) {
         $this->requestStack = $requestStack;
         $this->userManager = $userManager;
         $this->responder = $responder;
@@ -53,7 +52,7 @@ abstract class AbstractAuthController extends RestController
 
     protected function denyAccessIfUserLoggedIn(): void
     {
-        if($this->isGranted([User::DEFAULT_ROLE])) {
+        if ($this->isGranted([User::DEFAULT_ROLE])) {
             throw new AccessDeniedException('You are already logged in the system!');
         }
     }

@@ -6,5 +6,4 @@ namespace Core\Component\Storage\Exception;
 
 class DuplicateRecordException extends \LogicException
 {
-
 }

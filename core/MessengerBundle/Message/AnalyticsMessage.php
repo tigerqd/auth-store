@@ -7,7 +7,7 @@ namespace Core\MessengerBundle\Message;
 class AnalyticsMessage
 {
     /**
-     * @var int
+     * @var string|int
      */
     private $userId;
 
@@ -31,24 +31,29 @@ class AnalyticsMessage
         return new \DateTime();
     }
 
-    public function toArray(): array
+    public function getData(): array
     {
         return [
-            'id' => 1, // get prev id
+            'id' => uniqid('_analytics_event_', true),
             'id_user' => $this->getUserId(),
             'source_label' => $this->getEventType(),
-            'date_created' => $this->getDateCreated()->format('Y-m-d H:i:s')
+            'date_created' => $this->getDateCreated()->format('Y-m-d H:i:s'),
         ];
     }
 
-    public function getUserId(): int
+    /**
+     * @return int|string
+     */
+    public function getUserId()
     {
         return $this->userId;
     }
 
-    public function setUserId(int $userId): void
+    /**
+     * @param int|string $userId
+     */
+    public function setUserId($userId): void
     {
         $this->userId = $userId;
     }
 }
-
