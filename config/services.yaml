@@ -5,13 +5,8 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: 'en'
-    storage_dir: '/app/storage'
-    tracker_event_label: 'source_label'
-    rabbitmq_host: 'localhost'
-    rabbitmq_port: '15672'
-    rabbitmq_user: 'guest'
-    rabbitmq_password: 'guest'
-    rabbitmq_statuslayer_vhost: '/'
+    storage_dir: '%env(STORAGE_DIR)%'
+    tracker_event_label: '%env(TRACKER_EVENT_LABEL)%'
 
 services:
     # default configuration for services in *this* file

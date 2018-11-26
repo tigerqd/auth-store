@@ -1,6 +1,7 @@
 /vendor/
 .idea
 storage/*
+.env
 !storage/users/.gitkeep
 
 ###> symfony/framework-bundle ###
