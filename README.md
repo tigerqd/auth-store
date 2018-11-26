@@ -49,8 +49,8 @@ Prerequisites:
     ```
 7. Project api methods
    
-   1. POST /api/v1/register
-      # required body
+   1. ### POST /api/v1/register
+      required body
       [
            "password": "test",
            "firstname": "firstname",
@@ -59,14 +59,14 @@ Prerequisites:
            "nickname": "test"
       ]
       
-   2. POST /api/v1/login
-      # required body
+   2. ### POST /api/v1/login
+      required body
       [
            "password": "test",
            "nickname": "test"
       ]
       
-   3. GET /api/v1/track?source_label=pageHitEvent
+   3. ### GET /api/v1/track?source_label=pageHitEvent
 
 
 ## Docker for Mac Troubleshooting
