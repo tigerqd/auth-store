@@ -1,0 +1,12 @@
+framework:
+    messenger:
+        default_bus: messenger.bus.events
+        buses:
+            messenger.bus.events:
+        transports:
+             amqp: '%env(MESSENGER_TRANSPORT_DSN)%'
+
+        routing:
+             'Core\MessengerBundle\Message\AnalyticsMessage':
+               senders: [amqp]
+               #send_and_handle: true

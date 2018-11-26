@@ -1,0 +1,2 @@
+rest_api_routes:
+  resource: '@CoreRestApiBundle/Resources/config/routing.yaml'

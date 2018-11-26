@@ -1,0 +1,10 @@
+# config/tracker/services.yaml
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Core\Bridge\Tracker\RestApi\EventSubscriber\TrackerEventSubscriber:
+    arguments:
+      $tokenStorage: '@security.token_storage'

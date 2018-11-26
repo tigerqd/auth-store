@@ -1,0 +1,18 @@
+# config/user/services.yaml
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Core\Bridge\User\RestApi\Service\UserAuthenticatorService:
+    arguments:
+      $guard: '@security.authentication.guard_handler'
+      $authenticator: '@Core\UserBundle\Security\AuthUserGuard'
+      $providerKey: 'main'
+
+  Core\Bridge\User\RestApi\Service\UserAuthenticatorServiceInterface: '@Core\Bridge\User\RestApi\Service\UserAuthenticatorService'
+
+  Core\Bridge\User\RestApi\EventSubscriber\AuthEventSubscriber:
+    arguments:
+      $authenticatorService: '@Core\Bridge\User\RestApi\Service\UserAuthenticatorServiceInterface'

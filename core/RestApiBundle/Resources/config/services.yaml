@@ -1,0 +1,57 @@
+# config/services.yaml
+services:
+  Core\RestApiBundle\EventSubscriber\JsonConverterSubscriber:
+    autowire: true
+    autoconfigure: true
+
+  Core\RestApiBundle\EventSubscriber\ApiExceptionSubscriber:
+    autowire: true
+    autoconfigure: true
+
+  Core\RestApiBundle\EventSubscriber\WrongLoginDataSubscriber:
+    autowire: true
+    autoconfigure: true
+
+  Core\RestApiBundle\EventSubscriber\AccessDeniedSubscriber:
+    autowire: true
+    autoconfigure: true
+
+  Core\RestApiBundle\Responder\V1\RegisterResponder:
+    autowire: true
+    autoconfigure: true
+
+  Core\RestApiBundle\Responder\V1\LoginResponder:
+    autowire: true
+    autoconfigure: true
+
+  Core\RestApiBundle\Responder\V1\TrackerResponder:
+    autowire: true
+    autoconfigure: true
+
+  Core\RestApiBundle\Controller\V1\AbstractAuthController:
+    abstract: true
+    arguments:
+      $requestStack: '@request_stack'
+      $userManager: '@Core\UserBundle\Model\UserManagerInterface'
+      $eventDispatcher: '@event_dispatcher'
+
+  Core\RestApiBundle\Controller\V1\RegisterController:
+    parent: Core\RestApiBundle\Controller\V1\AbstractAuthController
+    arguments:
+      $responder: '@Core\RestApiBundle\Responder\V1\RegisterResponder'
+    tags: ['controller.service_arguments']
+
+  Core\RestApiBundle\Controller\V1\LoginController:
+    parent: Core\RestApiBundle\Controller\V1\AbstractAuthController
+    arguments:
+      $responder: '@Core\RestApiBundle\Responder\V1\LoginResponder'
+    tags: ['controller.service_arguments']
+
+  Core\RestApiBundle\Controller\V1\TrackController:
+    public: true
+    arguments:
+      $tracker: '@Core\TrackerBundle\Service\TrackerInterface'
+      $requestStack: '@request_stack'
+      $responder: '@Core\RestApiBundle\Responder\V1\TrackerResponder'
+      $eventLabelName: '%tracker_event_label%'
+    tags: ['controller.service_arguments']

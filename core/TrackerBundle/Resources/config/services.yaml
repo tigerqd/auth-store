@@ -1,0 +1,12 @@
+# config/services.yaml
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Core\TrackerBundle\Service\Tracker:
+    arguments:
+      $eventDispatcher: '@event_dispatcher'
+
+  Core\TrackerBundle\Service\TrackerInterface: '@Core\TrackerBundle\Service\Tracker'

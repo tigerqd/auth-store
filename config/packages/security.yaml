@@ -1,0 +1,28 @@
+security:
+    encoders:
+        base_encoder:
+            algorithm: md5
+            id: 'Core\UserBundle\Security\UserPasswordEncoder'
+
+    providers:
+        json_storage:
+            id: Core\UserBundle\Security\UserProvider
+
+        in_memory: { memory: ~ }
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main:
+            pattern: ^/api
+            anonymous: true
+            guard:
+                authenticators:
+                    - Core\UserBundle\Security\AuthUserGuard
+            provider: json_storage
+
+    access_control:
+         - { path: ^/api/v1/register/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+         - { path: ^/api/v1/login/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        # - { path: ^/admin, roles: ROLE_ADMIN }
+        # - { path: ^/profile, roles: ROLE_USER }

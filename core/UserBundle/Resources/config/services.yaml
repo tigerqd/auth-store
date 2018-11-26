@@ -1,0 +1,43 @@
+# config/services.yaml
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Core\UserBundle\Security\AuthUserGuard:
+    class: Core\UserBundle\Security\AuthUserGuard
+    calls:
+        - [setJsonConverter, ['@Core\Component\Request\JsonConverter']]
+    public: true
+    autowire: true
+
+  Core\UserBundle\Security\UserPasswordEncoder: ~
+
+  Core\UserBundle\Security\UserProvider: ~
+
+  Core\UserBundle\Transformer\UserJsonTransformer: ~
+
+  Core\UserBundle\Transformer\UserTransformerInterface: '@Core\UserBundle\Transformer\UserJsonTransformer'
+
+  Core\UserBundle\Repository\UserRepository:
+    class: Core\UserBundle\Repository\UserRepository
+    arguments:
+      $transformer: '@Core\UserBundle\Transformer\UserTransformerInterface'
+      $storage: '@Core\Component\Storage\StorageInterface'
+
+  Core\UserBundle\Repository\UserRepositoryInterface: '@Core\UserBundle\Repository\UserRepository'
+
+  Core\UserBundle\Model\UserManager:
+    class: Core\UserBundle\Model\UserManager
+    arguments:
+      $repository: '@Core\UserBundle\Repository\UserRepositoryInterface'
+      $transformer: '@Core\UserBundle\Transformer\UserTransformerInterface'
+      $storage: '@Core\Component\Storage\StorageInterface'
+      $encoder: '@Core\UserBundle\Security\UserPasswordEncoder'
+
+  Core\UserBundle\Model\UserManagerInterface: '@Core\UserBundle\Model\UserManager'
+
+  Core\UserBundle\Validator\Constraints\PasswordValidator:
+    arguments:
+      $encoder: '@Core\UserBundle\Security\UserPasswordEncoder'
