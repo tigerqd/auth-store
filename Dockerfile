@@ -1,6 +1,8 @@
-FROM php:7.1-fpm
+FROM php:7.2-fpm
 
-RUN apt update \
+RUN apt update
+
+RUN apt install -y libmcrypt-dev \
     && apt install -y \
         librabbitmq-dev \
         libssh-dev \
@@ -9,6 +11,7 @@ RUN apt update \
         sockets \
     && pecl install amqp \
     && docker-php-ext-enable amqp
+
 
 # PHP-gd
 RUN apt install -y libjpeg-dev libpng-dev libgif-dev libfreetype6-dev \
@@ -27,10 +30,6 @@ RUN docker-php-ext-install pdo_mysql
 RUN apt install -y libicu-dev \
     && docker-php-ext-configure intl \
     && docker-php-ext-install intl
-
-# PHP-mcrypt
-RUN apt install -y libmcrypt-dev \
-    && docker-php-ext-install mcrypt
 
 # PHP-redis
 RUN pecl install -o -f redis \
